@@ -1,21 +1,12 @@
 # 호진 추가 learn model 설명
 
-## 디렉토리 구조
-### Scripts/logs/{실험idx}/{각 세팅에 해당하는 데이터 디렉토리}/
-### setting : 해당 디렉토리의 실험이 진행된 세팅 값 저장. log_{idx} : 해당 세팅으로 실험된 결과, repeat idx
+## CPU, screen multiple linear regression : 각 실험 데이터를 이용해서 전력 소모량 선형회귀 학습
+### CPU : 빅/리틀 코어의 frequency 지정 및 utilization을 순찾거으로 높여가며 연산 태스크 수행시키게 함으로써 전력 소모량 데이터 수집
+파라미터 : 각 클러스터의 frequency, Utilization, 디바이스 온도, 디바이스 배터리 레벨
+### Screen : 화면 구성 픽셀 전체를 특정 색상으로 채울 수 있도록 실험 세팅.
+파라미터 : 화면 전체의 r, g, b 픽셀값의 평균값, 디바이스 온도, 디바이스 배터리 레벨
 
-## 데이터 형태
-### input.shape == (갯수, 4) -> 슬랙 참조 (세팅 값들)
-### output.shape == (갯수, 16) -> 슬랙 참조 (전력값의 벡터들)
-
-## CPU, wifi, bluetooth 로깅
-### CPU : /data/local/tmp/log_cpu 
-각 line : { key : 패키지명 value : 각 클러스터의 json array [ { key : speed index value : 해당 speed 에서 실행 시간 } ... ] }
-### Wifi, bluetooth : /data/local/tmp/log_wifi_bluetooth
-각 line : { key : 패키지명 value : json { key : 시간명 ex) idle_wifi, rx_wifi value : 실행 시간 } }
-### 참고사항 : 값이 없을 경우에는, (실행시간이 0) wifi_bluetooth 로그에서는 빈 json 으로 존재할 수 있음
-
-## 호진 실험 스크립트 설명
+## Monitor_runtime* 실험 스크립트 설명
 각 로그 파일 이름 기준 : 앱이름_실험번호_반복idx
 (실험 번호는, 실험 세팅이나 목적 등이 달라져 이전 실험과 구분이 필요할 때 바꿔줌)
 아직은 스크립트 실행마다 직접 실험번호와 반복 idx 를 직접 수정해가면서 실행.
